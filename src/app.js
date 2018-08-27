@@ -61,11 +61,31 @@ router.get('/cowsay', (req,res) => {
   html(res, `<!DOCTYPE html><html><head><title> cowsay </title></head><body><h1> cowsay </h1><pre>${message}</pre></html>`);
 });
 
-router.get('/api/cowsay', (req,res) => {
+router.get('/api/cowsay', (req, res) => {
   jsonify(res,{
     text: req.query.text,
   });
 });
+
+// router.post('/500', (req, res)=> {
+//   throw new Error('Test Error');
+// });
+
+router.post('/api/cowsay', (req, res)=> {
+  jsonify(res, {
+    message: `Hello, ${req.body.name}!`,
+  });
+});
+
+// router.get('/api/heroes', (req, res)=> {
+//   requestMessage(res, req.query.id);
+// });
+
+// router.post('/api/heroes', (req, res)=> {
+//   jsonify(res, req.body);
+// });
+
+require('./routes/api');
 
 function html(res, content, statusCode = 200, statusMessage = 'OK') {
   res.statusCode = statusCode;
@@ -74,6 +94,21 @@ function html(res, content, statusCode = 200, statusMessage = 'OK') {
   res.write(content);
   res.end();
 }
+
+// function requestMessage(res, object){
+//   if(object){
+//     res.statusCode = 200;
+//     res.statusMessage = 'OK';
+//     res.setHeader('Content-Type', 'application/json');
+//     res.write(JSON.stringify({message: `ID ${object} was requested`}));
+//     res.end();
+//   } else{
+//     res.statusCode = 400;
+//     res.statusMessage = 'Invalid Request';
+//     res.write('{"error": "invalid request: text query required"}');
+//     res.end();
+//   }
+// }
 
 function jsonify(res, object){
   if(object){
