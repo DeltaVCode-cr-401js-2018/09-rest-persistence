@@ -1,6 +1,5 @@
 'use strict';
 
-
 const Storage = require('../lib/storage');
 const noteStore = new Storage('notes');
 class Note {
